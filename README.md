@@ -13,5 +13,11 @@ A desktop verison of the FluffyChat client for Windows with a Microsoft Edge2 We
 
 To access most settings and UIs specific to the app, right-click on the application's titlebar and press "Settings", or access the settings pane by right-clicking the system tray icon.
 
+### Download installer
+(Download from Codrut Software)[https://www.codrutsoft.com/apps/fluffy-chat-desktop]
+
+### FluffyChat Web-Client Source Code
+https://github.com/krille-chan/fluffychat
+
 ## Image gallery
 <img width="2027" height="1213" alt="Screenshot 2026-06-02 144041" src="https://github.com/user-attachments/assets/dea170f8-3fa7-4a3e-a293-b74c15e4afe9" />

@@ -154,8 +154,8 @@ type
   end;
 
 const
-  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 0);
-  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 6; Maintenance: 0);
+  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 1);
+  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 7; Maintenance: 2);
 
   APP_NAME = 'FluffyChat Desktop';
 
