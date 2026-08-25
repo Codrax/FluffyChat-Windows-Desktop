@@ -12,7 +12,7 @@ uses
   System.Win.TaskbarCore, Vcl.Taskbar, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, System.Generics.Collections, Math,
   Cod.WindowsRT.AppRegistration, Cod.WindowsRT.NotificationManager,
-  Cod.WindowsRT, Cod.CodrutSoftware.API.Update;
+  Cod.WindowsRT, Cod.CodrutSoftware.API.Update, Cod.Forms;
 
 const
     WM_RESTOREAPPFROMTRAY = WM_USER + 100;
@@ -155,7 +155,7 @@ type
 
 const
   VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 1);
-  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 7; Maintenance: 2);
+  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 9; Maintenance: 1);
 
   APP_NAME = 'FluffyChat Desktop';
 
@@ -625,7 +625,7 @@ begin
   TrayIcon.Hint := APP_NAME;
 
   // Dirs
-  AppData := GetPathInAppData(APP_NAME, TAppDataType.Roaming, true);
+  AppData := GetPathInAppData(APP_NAME, 'Codrut Software', TAppDataType.Roaming, true);
   AppDir := IncludeTrailingPathDelimiter(ExtractFileDir(Application.ExeName));
 
   // UI
