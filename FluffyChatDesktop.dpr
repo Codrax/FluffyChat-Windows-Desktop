@@ -39,6 +39,10 @@ begin
   if HasAppInfo then
     const Info = GetAppInfo;
 
+  // Type
+  IsWindowsStoreApp := IsPathInWindowsApps(ParamStr(0));
+  IsWindowsStoreApp := true;
+
   // Start hidden
   if HasParameter('tray') then begin
     Application.ShowMainForm := false;

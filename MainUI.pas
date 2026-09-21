@@ -154,7 +154,7 @@ type
   end;
 
 const
-  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 1);
+  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 2);
   FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 9; Maintenance: 1);
 
   APP_NAME = 'FluffyChat Desktop';
@@ -191,6 +191,8 @@ var
   AppDir: string;
   Settings: TSettingsManager;
   Status: TSectionSettingsManager;
+
+  IsWindowsStoreApp: boolean;
 
   DebugMode: boolean;
   AppInitialized: boolean;
@@ -808,6 +810,9 @@ end;
 
 procedure TMainForm.DelayedUpdateCheckTimer(Sender: TObject);
 begin
+  if IsWindowsStoreApp then
+    Exit;
+
   // Is in tray
   if InTray then
     Exit;

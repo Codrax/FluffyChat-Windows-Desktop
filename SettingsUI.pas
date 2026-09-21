@@ -179,6 +179,14 @@ begin
   CheckBox3.Checked := Settings.Get<boolean>('minimize-to-tray', 'general', true);
   CheckBox5.Checked := Settings.Get<boolean>('app', 'check-updates', true);
   TrackBar1.Position := round(Settings.Get<double>('zoom', 'accessibility', 1)*100);
+
+  // Store
+  if IsWindowsStoreApp then begin
+    Label13.Hide;
+    CheckBox5.Hide;
+    Label14.Hide;
+    Button4.Hide;
+  end;
 end;
 
 function TSettingsForm.GetStartupLinkFilePath: string;
