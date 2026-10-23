@@ -41,7 +41,6 @@ begin
 
   // Type
   IsWindowsStoreApp := IsPathInWindowsApps(ParamStr(0));
-  IsWindowsStoreApp := true;
 
   // Start hidden
   if HasParameter('tray') then begin
