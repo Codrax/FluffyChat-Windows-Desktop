@@ -12,7 +12,7 @@ uses
   System.Win.TaskbarCore, Vcl.Taskbar, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, System.Generics.Collections, Math,
   Cod.WindowsRT.AppRegistration, Cod.WindowsRT.NotificationManager,
-  Cod.WindowsRT, Cod.CodrutSoftware.API.Update, Cod.Forms;
+  Cod.WindowsRT, Cod.CodrutSoftware.API.Update, Cod.Forms, ShellAPI;
 
 const
     WM_RESTOREAPPFROMTRAY = WM_USER + 100;
@@ -139,6 +139,8 @@ type
     procedure BrowserNavigationStarting(Sender: TCustomEdgeBrowser; Args: TNavigationStartingEventArgs);
     procedure BrowserNavigationCompleted(Sender: TCustomEdgeBrowser;
       IsSuccess: Boolean; WebErrorStatus: COREWEBVIEW2_WEB_ERROR_STATUS);
+    procedure BrowserNewWindowRequested( Sender: TCustomEdgeBrowser;
+      Args: TNewWindowRequestedEventArgs);
 
     procedure NotifActivated(Sender: TNotification; Arguments: string; UserInput: TUserInputMap);
 
@@ -154,8 +156,8 @@ type
   end;
 
 const
-  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 2);
-  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 9; Maintenance: 1);
+  VERSION: TVersion = (Major: 1; Minor: 0; Maintenance: 3);
+  FLUFFYCHAT_CLIENT_VERSION: TVersion = (Major: 2; Minor: 11; Maintenance: 2);
 
   APP_NAME = 'FluffyChat Desktop';
 
@@ -313,6 +315,31 @@ begin
   CurrentState := 'Navigating';
 
   BrowserNavigating := true;
+end;
+
+procedure TMainForm.BrowserNewWindowRequested(Sender: TCustomEdgeBrowser;
+  Args: TNewWindowRequestedEventArgs);
+var
+  s_uri: PWideChar;
+  URL: string;
+begin
+  if not Succeeded(Args.ArgsInterface.Get_uri(s_uri)) then
+    Exit;
+  URL := s_uri;
+
+  // Prevent WebView2 from opening its own window.
+  Args.ArgsInterface.Set_Handled(1);
+
+  // Open the link in the system's default browser.
+  if URL <> '' then
+    ShellExecute(
+      0,
+      'open',
+      PChar(URL),
+      nil,
+      nil,
+      SW_SHOWNORMAL
+    );
 end;
 
 procedure TMainForm.Button10Click(Sender: TObject);
@@ -560,8 +587,10 @@ begin
       else
     if Items[I].EndsWith('notification.ogg') then
       Inc(CountNotifications)
-    else
-      ShowMessage(Items[I]);
+    else begin
+      // DEBUG
+      //ShowMessage(Items[I]);
+    end;
 
   // Remove notifications that belong to the calls
   if (CountCalls > 0) then
@@ -676,6 +705,7 @@ begin
   Browser.OnNavigationStarting := BrowserNavigationStarting;
   Browser.OnNavigationCompleted := BrowserNavigationCompleted;
   Browser.OnCreateWebViewCompleted := CreatingWebViewFinalized;
+  Browser.OnNewWindowRequested := BrowserNewWindowRequested;
 
   const AppDataBrowser = AppData + 'Browser\';
   Browser.UserDataFolder := AppDataBrowser;
