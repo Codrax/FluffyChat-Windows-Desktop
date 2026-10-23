@@ -74,6 +74,7 @@ type
     Settings1: TMenuItem;
     N4: TMenuItem;
     PeriodicUpdaterTask: TTimer;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure TrayIconDblClick(Sender: TObject);
@@ -94,6 +95,7 @@ type
     procedure StartURLLoaderTimer(Sender: TObject);
     procedure Settings1Click(Sender: TObject);
     procedure PeriodicUpdaterTaskTimer(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   protected
     procedure WMSysCommand(var Message: TWMSysCommand); message WM_SYSCOMMAND;
     procedure WMRestoreAppFromTray(var Message: TMessage); message WM_RESTOREAPPFROMTRAY;
@@ -180,7 +182,7 @@ const
   SOURCE_BASE = 'source\';
   APP_BASE_FILE = SOURCE_BASE+'web\index.html';
 
-  HOME_URL = 'https://app.local/web/index.html';
+  HOME_URL = 'http://app.local/web/index.html';
 
 var
   MainForm: TMainForm;
@@ -345,6 +347,11 @@ end;
 procedure TMainForm.Button10Click(Sender: TObject);
 begin
   Browser.Navigate('about:blank');
+end;
+
+procedure TMainForm.Button1Click(Sender: TObject);
+begin
+  ShellRun(AppDir);
 end;
 
 procedure TMainForm.Button4Click(Sender: TObject);

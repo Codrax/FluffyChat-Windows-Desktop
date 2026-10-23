@@ -629,6 +629,15 @@ object MainForm: TMainForm
         ParentFont = False
       end
     end
+    object Button1: TButton
+      Left = 16
+      Top = 320
+      Width = 156
+      Height = 25
+      Caption = 'Open app dir'
+      TabOrder = 9
+      OnClick = Button1Click
+    end
   end
   object TrayIcon: TTrayIcon
     PopupMenu = TrayMenu
