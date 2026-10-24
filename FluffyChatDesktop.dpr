@@ -3,6 +3,7 @@ program FluffyChatDesktop;
 uses
   Winapi.Windows,
   Winapi.Messages,
+  SysUtils,
   Vcl.Forms,
   Cod.SysUtils,
   Cod.Windows,
@@ -17,6 +18,9 @@ uses
 begin
   // Debug
   DebugMode := HasParameter('debug');
+
+  // Dir
+  ChDir(ExtractFileDir(ParamStr(0)));
 
   Application.Initialize;
   Application.MainFormOnTaskbar := True;

@@ -182,7 +182,11 @@ const
   SOURCE_BASE = 'source\';
   APP_BASE_FILE = SOURCE_BASE+'web\index.html';
 
-  HOME_URL = 'http://app.local/web/index.html';
+  // I am using localhost as an app mapping, this must be some sort of sin
+  // But it's the only thing mozilla and other OAuth servers accept for login,
+  // so, sorry
+  APP_LOCAL_LOOPBACK = 'localhost';
+  HOME_URL = 'http://'+APP_LOCAL_LOOPBACK+'/web/index.html'; // use https (for login loopback)
 
 var
   MainForm: TMainForm;
@@ -473,7 +477,7 @@ begin
 
   // Set host mapping
   Browser.SetVirtualHostNameToFolderMapping(
-    'app.local',
+    APP_LOCAL_LOOPBACK,
     AppDir + SOURCE_BASE,
     COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW
   );
